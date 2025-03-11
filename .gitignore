@@ -5,7 +5,12 @@ __pycache__/
 
 # C extensions
 *.so
-
+ASLYset
+American Sign Language (ASL) dataset
+American Sign Language (ASL) dataset/
+./American Sign Language (ASL) dataset/
+./ASLYset/
+ASLYset/
 # Distribution / packaging
 .Python
 build/
