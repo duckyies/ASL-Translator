@@ -11,6 +11,17 @@ American Sign Language (ASL) dataset/
 ./American Sign Language (ASL) dataset/
 ./ASLYset/
 ASLYset/
+
+asl_alphabet_test/
+asl_alphabet_train/
+train/
+
+
+./asl_alphabet_test/
+./asl_alphabet_train/
+./train/
+
+
 # Distribution / packaging
 .Python
 build/
@@ -69,7 +80,7 @@ db.sqlite3-journal
 # Flask stuff:
 instance/
 .webassets-cache
-
+    
 # Scrapy stuff:
 .scrapy
 
