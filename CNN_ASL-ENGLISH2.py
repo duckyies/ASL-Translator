@@ -19,9 +19,6 @@ MODEL_NAME = 'asl_cnn_classifier_no_aug.h5'
 MAX_IMAGES_PER_CLASS = 40  # Limit number of images per class for faster loading
 
 TRAIN_DIR = r"C:\Users\lenovo\Documents\GitHub\ASL-Translator\ASLYset\ASLYset\images\User1"
-APPEND_TRAIN =  r"C:\Users\lenovo\Documents\GitHub\ASL-Translator\ASLYset\ASLYset\images\User4"
-APPEND_TRAIN_2 = r"C:\Users\lenovo\Documents\GitHub\ASL-Translator\ASLYset\ASLYset\images\User2"
-APPEND_TRAIN_3 = r"C:\Users\lenovo\Documents\GitHub\ASL-Translator\ASLYset\ASLYset\images\User3"
 
 # ========================
 # DATA LOADING & LABEL HANDLING
@@ -46,7 +43,7 @@ def update_labels_from_filenames(data_dir):
             index_to_label[new_index] = label
 
 # Update label mapping using filename-based dataset
-update_labels_from_filenames(APPEND_TRAIN)
+update_labels_from_filenames(TRAIN_DIR)
 
 num_classes = len(label_to_index)
 
@@ -115,20 +112,13 @@ def create_data_filename(data_dir, start=0, end=1000):
 
 # Load Training Data
 train_data = create_data(TRAIN_DIR)
-append_train_data = create_data(APPEND_TRAIN)
-append_train_data_2 = create_data(APPEND_TRAIN_2)
-append_train_data_3=create_data(APPEND_TRAIN_3)
-# Merge datasets
-train_data.extend(append_train_data)
-train_data.extend(append_train_data_2)
-train_data.extend(append_train_data_3)
 shuffle(train_data)
 
 # ========================
 # DATA PREPARATION
 # ========================
-train = train_data[:-500]
-val = train_data[-500:]
+train = train_data[:round(-0.1*len(train_data))]
+val = train_data[round(-0.1*len(train_data)):]
 
 X_train = np.array([i[0] for i in train]).reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 Y_train = np.array([i[1] for i in train])
@@ -177,7 +167,7 @@ checkpoint = ModelCheckpoint(MODEL_NAME, save_best_only=True, monitor='val_accur
 history = model.fit(
     X_train, Y_train,
     validation_data=(X_val, Y_val),
-    epochs=20,  # Increased since no augmentation
+    epochs=30,  # Increased since no augmentation
     batch_size=32,
     callbacks=[checkpoint]
 )

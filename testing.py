@@ -11,7 +11,7 @@ from sklearn.metrics import classification_report, precision_score, recall_score
 # ========================
 IMG_SIZE = 64
 MODEL_NAME = 'asl_cnn_classifier_no_aug.h5'
-DATA_DIR = r"C:\Users\lenovo\Documents\GitHub\ASL-Translator\ASLYset\ASLYset\images\User3"
+DATA_DIR = r"C:\Users\lenovo\Documents\GitHub\ASL-Translator\ASLYset\ASLYset\images\User1"
 MAX_IMAGES_PER_CLASS = 10
 
 # ========================
@@ -58,7 +58,8 @@ def create_data(data_dir):
         if label not in label_to_index:
             continue  # Skip unknown labels
 
-        images = sorted(os.listdir(label_path))[len(os.listdir(label_path)) - 1:len(os.listdir(label_path)) - MAX_IMAGES_PER_CLASS - 1:-1]
+        images = sorted(os.listdir(label_path))[-MAX_IMAGES_PER_CLASS:]
+
         img_paths = [os.path.join(label_path, img_name) for img_name in images if os.path.isfile(os.path.join(label_path, img_name))]
 
         for img_path in img_paths:
